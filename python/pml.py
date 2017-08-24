@@ -90,7 +90,8 @@ def estimate_Renyi_entropy_PML_approximate(samp,alpha,K=None):
 def entropy_of_distribution(vec,base=2.0):
     # computes Shannon entropy of vector vec, default base 2
     Z = np.sum(vec)
-    H = sum(-p*np.log(p) for p in vec if p > 0.0)
+    nonneg = vec[vec > 0.0]
+    H = -sum(nonneg * np.log(nonneg))
     return (H/Z + np.log(Z))/np.log(base)
 
 def renyi_entropy_of_distribution(vec, alpha, base=2.0):
